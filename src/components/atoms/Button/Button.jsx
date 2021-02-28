@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import { Link } from 'gatsby';
 
 const StyledWrapper = styled(Link)`
-  padding: .7rem 1.5rem;
+  padding: .7rem 2rem;
+  text-transform: uppercase;
   background-color: ${({theme, type}) => theme.color[type]};
-  color: ${({theme, type}) => type === 'secondary' ? '#fff' : theme.color.black};
+  color: ${({theme, type}) => type === 'secondary' || type === 'black' ? '#fff' : theme.color.black};
   border: ${({theme, type}) => theme.color[type]};
 `;
 

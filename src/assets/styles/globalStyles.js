@@ -39,6 +39,11 @@ const GlobalStyles = createGlobalStyle`
     margin: 0 auto;
     padding: 0 1rem;
   }
+
+
+  .ml-2 {
+    margin-left: 2rem;
+  }
 `;
 
 export default GlobalStyles;
