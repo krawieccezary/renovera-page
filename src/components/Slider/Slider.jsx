@@ -34,7 +34,7 @@ const StyledHeroBrand = styled.span`
     width: 70px;
     height: 70px;
     transform: translateX(-50%);
-    border: 7px solid ${({theme}) => theme.color.primary};
+    /* border: 7px solid ${({theme}) => theme.color.primary}; */
     z-index: -1;
   }
 `;

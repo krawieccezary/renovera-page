@@ -44,6 +44,7 @@ module.exports = {
         apiToken: process.env.DATOCMS_API,
       },
     },
+    `gatsby-plugin-layout`
     // {
     //   resolve: `gatsby-plugin-manifest`,
     //   options: {
