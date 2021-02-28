@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Logo from './Logo/Logo';
-import Navigation from './Navigation/Navigation';
-import TopBarLink from '../Header/TopBarLink/TopBarLink';
+import { Logo, Navigation, TopBarLink } from '../../index';
 
 const StyledWrapper = styled.div`
   display: flex;

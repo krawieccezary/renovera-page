@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
+import { Button } from '../../index';
 
 const StyledWrapper = styled.nav`
   margin-top: 33px;
@@ -18,7 +19,7 @@ const Navigation = () => (
     <StyledLink to='/'>Strona główna</StyledLink>
     <StyledLink to='/oferta'>Oferta</StyledLink>
     <StyledLink to='/realizacje'>Realizacje</StyledLink>
-    <StyledLink to='/kontakt'>Kontakt</StyledLink>
+    <StyledLink as={Button} type='secondary' to='/kontakt'>Kontakt</StyledLink>
   </StyledWrapper>
 )
 
