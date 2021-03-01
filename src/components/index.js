@@ -7,3 +7,4 @@ export { default as Logo } from './atoms/Logo/Logo';
 export { default as Navigation } from './molecules/Navigation/Navigation';
 export { default as TopBarLink } from './atoms/TopBarLink/TopBarLink';
 export { default as ContentBox } from './molecules/ContentBox/ContentBox';
+export { default as IconsBox } from './molecules/IconsBox/IconsBox';

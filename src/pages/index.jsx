@@ -1,10 +1,11 @@
 import React from 'react';
-import { Slider, ContentBox } from '../components';
+import { Slider, ContentBox, IconsBox } from '../components';
 
 const HomePage = () => (
   <>
     <Slider />
     <ContentBox />
+    <IconsBox />
   </>
 )
 
