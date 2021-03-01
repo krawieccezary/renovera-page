@@ -6,7 +6,7 @@ import Image from 'gatsby-image';
 
 const StyledWrapper = styled.div`
   position: relative;
-  height: 50vh;
+  height: calc(100vh - 150px);
   min-height: 550px;
   overflow: hidden;
 `;
@@ -18,6 +18,17 @@ const StyledSlide = styled.div`
   transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.15);
+    z-index: 1;
+  }
 `;
 
 const StyledHero = styled.div`
@@ -26,6 +37,7 @@ const StyledHero = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   color: #fff;
+  z-index: 2;
 `;
 
 const StyledHeroBrand = styled.h1`
@@ -48,6 +60,11 @@ const StyledHeroBrand = styled.h1`
     border: 7px solid ${({theme}) => theme.color.primary};
     z-index: -1;
   }
+`;
+
+const StyledHeroSubtitle = styled.h2`
+  margin-top: 1rem;
+  font-weight: 500;
 `;
 
 const Slider = () => {
@@ -77,7 +94,7 @@ const Slider = () => {
             <Image fluid={sliderImage.fluid}/>
             <StyledHero>
               <StyledHeroBrand>Renovera</StyledHeroBrand>
-              <h2>{sliderHeader}</h2>
+              <StyledHeroSubtitle>{sliderHeader}</StyledHeroSubtitle>
             </StyledHero>
           </StyledSlide>
         ))

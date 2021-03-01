@@ -9,7 +9,7 @@ const Logo = () => {
       {
       file(name: {regex: "/logo/i"}) {
         childImageSharp {
-          fixed(width: 100, quality: 90){
+          fixed(height: 100, quality: 90){
             ...GatsbyImageSharpFixed_tracedSVG
           }
         }

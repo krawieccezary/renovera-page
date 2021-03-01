@@ -31,13 +31,13 @@ const GlobalStyles = createGlobalStyle`
   }
   a {
     text-decoration: unset;
-    color: #323232;
+    color: ${({theme}) => theme.color.black};
   }
 
   .wrapper {
-    max-width: 1200px;
+    max-width: ${({theme}) => theme.variables.wrapper_width};
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 2rem;
   }
 
 
