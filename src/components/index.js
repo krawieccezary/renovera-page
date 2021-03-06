@@ -8,4 +8,5 @@ export { default as Navigation } from './molecules/Navigation/Navigation';
 export { default as TopBarLink } from './atoms/TopBarLink/TopBarLink';
 export { default as ContentBox } from './molecules/ContentBox/ContentBox';
 export { default as IconsBox } from './molecules/IconsBox/IconsBox';
-export { default as OfferSection } from './molecules/OfferSection/OfferSection';
+export { default as OfferSection } from './organisms/OfferSection/OfferSection';
+export { default as PortfolioSection } from './organisms/PortfolioSection/PortfolioSection';

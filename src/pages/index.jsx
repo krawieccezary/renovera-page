@@ -1,5 +1,5 @@
 import React from 'react';
-import { Slider, ContentBox, IconsBox, OfferSection } from '../components';
+import { Slider, ContentBox, IconsBox, OfferSection, PortfolioSection } from '../components';
 
 const HomePage = () => (
   <>
@@ -7,6 +7,7 @@ const HomePage = () => (
     <ContentBox />
     <IconsBox />
     <OfferSection />
+    <PortfolioSection />
   </>
 )
 
