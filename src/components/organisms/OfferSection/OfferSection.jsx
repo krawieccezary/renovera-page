@@ -46,7 +46,6 @@ const OfferSection = () => {
       }
     }
   `);
-console.log(contents);
   return (
     <>
       <div className="wrapper section">
