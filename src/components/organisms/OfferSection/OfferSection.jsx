@@ -35,28 +35,28 @@ const StyledTitle = styled.h3`
 
 
 const OfferSection = () => {
-  const { datoCmsOffersPage: { offerContent }} = useStaticQuery(graphql`
-    query offerQuery {
-      datoCmsOffersPage {
-        offerContent {
+  const { allDatoCmsOffersPage: { nodes: contents }}  = useStaticQuery(graphql`
+    query offersQuery {
+      allDatoCmsOffersPage {
+        nodes {
           offerTitle
-          offerDescription,
+          shortDescription
           id
         }
       }
     }
   `);
-
+console.log(contents);
   return (
     <>
       <div className="wrapper section">
         <SectionHeading>Nasza oferta</SectionHeading>
         <StyledGrid>
           {
-            offerContent.map(({ offerTitle, offerDescription, id }) => (
+            contents.map(({ offerTitle, shortDescription, id }) => (
               <div key={id}>
                 <StyledTitle>{offerTitle}</StyledTitle>
-                <Paragraph>{offerDescription}</Paragraph>
+                <Paragraph>{shortDescription}</Paragraph>
               </div>
             ))
           }
