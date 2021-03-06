@@ -40,6 +40,11 @@ const GlobalStyles = createGlobalStyle`
     padding: 0 2rem;
   }
 
+  .section {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+
 
   .ml-2 {
     margin-left: 2rem;
