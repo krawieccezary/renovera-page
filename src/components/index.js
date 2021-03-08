@@ -10,3 +10,4 @@ export { default as ContentBox } from './molecules/ContentBox/ContentBox';
 export { default as IconsBox } from './molecules/IconsBox/IconsBox';
 export { default as OfferSection } from './organisms/OfferSection/OfferSection';
 export { default as PortfolioSection } from './organisms/PortfolioSection/PortfolioSection';
+export { default as RenoveraMap } from './organisms/RenoveraMap/RenoveraMap';

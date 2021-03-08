@@ -1,5 +1,6 @@
 import React from 'react';
 import { Slider, ContentBox, IconsBox, OfferSection, PortfolioSection } from '../components';
+import { RenoveraMap } from '../components/index';
 
 const HomePage = () => (
   <>
@@ -8,6 +9,7 @@ const HomePage = () => (
     <IconsBox />
     <OfferSection />
     <PortfolioSection />
+    <RenoveraMap />
   </>
 )
 
