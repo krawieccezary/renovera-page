@@ -13,5 +13,8 @@ export const theme = {
   },
   variables: {
     wrapper_width: '1200px'
+  },
+  transitions: {
+    primary: 'cubic-bezier(0, 0.94, 0.3, 0.99)'
   }
 }
