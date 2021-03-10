@@ -1,16 +1,28 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyles from '../assets/styles/globalStyles';
 import { theme } from '../assets/styles/theme';
-import { Header } from '../components/index';
+import { Header, Footer } from '../components/index';
 
+const StyledWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const StyledMain = styled.main`
+  flex-grow: 1;
+`;
 
 const MainLayout = ({ children }) => (
   <ThemeProvider theme={theme}>
     <>
-      <GlobalStyles />
-      <Header />
-      <main>{children}</main>
+      <StyledWrapper>
+        <GlobalStyles />
+        <Header />
+        <StyledMain>{children}</StyledMain>
+        <Footer />
+      </StyledWrapper>
     </>
   </ThemeProvider>
 )

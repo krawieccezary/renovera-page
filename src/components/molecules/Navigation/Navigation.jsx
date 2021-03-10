@@ -14,12 +14,17 @@ const StyledLink = styled(Link)`
   padding: 0 10px;
 `;
 
-const Navigation = () => (
-  <StyledWrapper>
+const Navigation = ({ className, location }) => (
+  <StyledWrapper className={className}>
     <StyledLink to='/'>Strona główna</StyledLink>
     <StyledLink to='/oferta'>Oferta</StyledLink>
     <StyledLink to='/realizacje'>Realizacje</StyledLink>
-    <StyledLink as={Button} type='secondary' to='/kontakt'>Kontakt</StyledLink>
+    {location === 'footer' 
+    ? (
+      <StyledLink to='/kontakt'>Kontakt</StyledLink>
+    ):(
+      <StyledLink as={Button} type='secondary' to='/kontakt'>Kontakt</StyledLink>
+    )} 
   </StyledWrapper>
 )
 
