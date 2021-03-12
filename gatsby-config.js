@@ -47,7 +47,8 @@ module.exports = {
       },
     },
     `gatsby-plugin-layout`,
-    `gatsby-plugin-react-leaflet`
+    `gatsby-plugin-react-leaflet`,
+    `gatsby-transformer-remark`,
     // {
     //   resolve: `gatsby-plugin-manifest`,
     //   options: {
