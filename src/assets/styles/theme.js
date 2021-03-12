@@ -9,6 +9,7 @@ export const theme = {
     primary: 'hsl(49, 100%, 49%)',
     secondary: 'hsl(144, 100%, 30%)',
     black: '#323232',
+    light_gray: '#F9F9F9',
     light_gray: '#F9F9F9'
   },
   variables: {
