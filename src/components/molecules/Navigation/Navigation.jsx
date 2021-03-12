@@ -23,7 +23,7 @@ const Navigation = ({ className, location }) => (
     ? (
       <StyledLink to='/kontakt'>Kontakt</StyledLink>
     ):(
-      <StyledLink as={Button} type='secondary' to='/kontakt'>Kontakt</StyledLink>
+      <StyledLink as={Button} color='secondary' to='/kontakt'>Kontakt</StyledLink>
     )} 
   </StyledWrapper>
 )

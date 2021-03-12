@@ -78,8 +78,8 @@ const ContentBox = () => {
             <SectionHeading>{heading}</SectionHeading>
             <Paragraph>{content}</Paragraph>
             <StyledButtonsWrapp>
-              <Button type='secondary' to='/oferta'>Oferta</Button>
-              <Button type='black' to='/kontakt'>Kontakt</Button>
+              <Button color='secondary' to='/oferta'>Oferta</Button>
+              <Button color='black' to='/kontakt'>Kontakt</Button>
             </StyledButtonsWrapp>
           </div>
           <Image fluid={image.fluid} />

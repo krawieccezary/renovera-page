@@ -80,7 +80,7 @@ const PortfolioSection = () => {
           <PortfolioItem key={id} title={title} image={images[0].fluid} />
         ))}
         <ButtonWrapper>
-          <Button type='secondary' to='/realizacje'>Zobacz więcej</Button>
+          <Button color='secondary' to='/realizacje'>Zobacz więcej</Button>
         </ButtonWrapper>
         <HeadingWrapper>
           <SectionHeading>Realizacje</SectionHeading>
