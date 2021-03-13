@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Paragraph = styled.p`
-  font-size: 1.6rem;
+  font-size: ${({theme}) => theme.fontSize.normal};
   line-height: 2rem;
   text-align: ${({align}) => align ? align : 'justify'};
   white-space: pre-line;

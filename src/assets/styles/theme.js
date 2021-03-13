@@ -1,9 +1,9 @@
 export const theme = {
   fontSize: {
-    small: '.8rem',
-    normal: '1rem',
-    large: '1.2rem',
-    big: '1.4rem'
+    small: '1rem',
+    normal: '1.4rem',
+    large: '1.6rem',
+    big: '2rem'
   },
   color: {
     primary: 'hsl(49, 100%, 49%)',
