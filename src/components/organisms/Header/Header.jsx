@@ -7,7 +7,7 @@ const StyledHeader = styled.header`
   position: sticky !important;
   top: -33px;
   background-color: rgba(255,255,255,.9);
-  z-index: 1;
+  z-index: 5;
 `;
 
 const StyledWrapper = styled.div`
@@ -16,6 +16,7 @@ const StyledWrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   position: relative;
+  z-index: 1001;
 
   .wrapper {
     width: 100%;

@@ -9,7 +9,6 @@ const StyledWrapper = styled.nav`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: #000;
   margin: 0 5px;
   padding: 0 10px;
 `;

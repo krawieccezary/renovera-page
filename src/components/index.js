@@ -12,3 +12,4 @@ export { default as OfferSection } from './organisms/OfferSection/OfferSection';
 export { default as PortfolioSection } from './organisms/PortfolioSection/PortfolioSection';
 export { default as RenoveraMap } from './organisms/RenoveraMap/RenoveraMap';
 export { default as Footer } from './organisms/Footer/Footer';
+export { default as FormField } from './atoms/FormField/FormField';
