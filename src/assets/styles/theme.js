@@ -10,7 +10,7 @@ export const theme = {
     secondary: 'hsl(144, 100%, 30%)',
     black: '#323232',
     light_gray: '#F9F9F9',
-    light_gray: '#F9F9F9'
+    gray: '#f3eaea'
   },
   variables: {
     wrapper_width: '1200px'
