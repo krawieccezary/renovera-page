@@ -54,7 +54,7 @@ const OfferSection = () => {
           {
             contents.map(({ offerTitle, shortDescription, id }) => (
               <div key={id}>
-                <StyledTitle>{offerTitle}</StyledTitle>
+                <SectionHeading special>{offerTitle}</SectionHeading>
                 <Paragraph>{shortDescription}</Paragraph>
               </div>
             ))
