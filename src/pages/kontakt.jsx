@@ -1,25 +1,37 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Formik, Form, Field } from 'formik';
-import { Button, Styled, Paragraph } from '../components/index';
+import { Button, Logo, Paragraph, Navigation } from '../components/index';
 import PageContext from '../context/PageContext';
 
+const NavigationWrapper = styled.nav`
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  text-align: right;
+`;
+
 const StyledWrapper = styled.div`
-  min-height: calc(100vh - 100px);
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+`;
+
+const StyledFlexChild = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 2rem;
+  width: ${({type}) => type === 'data' ? '40%' : '60%'};
+  background-color: ${({type, theme}) => type === 'data' ? theme.color.primary : ''};
 `;
 
-const StyledFlex = styled.div`
-  display: flex;
-  width: 100%;
-  margin: 10rem auto 10rem;
-`;
-
-const StyledFlexChild = styled.div`
-  width: 50%;
+const StyledLogo = styled(Logo)`
+  margin-bottom: 3rem;
 `;
 
 const StyledParagraph = styled(Paragraph)`
@@ -30,6 +42,10 @@ const StyledParagraph = styled(Paragraph)`
 const StyledForm = styled(Form)`
   width: 100%;
   max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem;
 `;
 
 const StyledField = styled(Field)`
@@ -43,74 +59,77 @@ const StyledField = styled(Field)`
   min-height: ${({type}) => type ? 'auto' : '180px'};
 `;
 
-const KontaktPage = () => {
-  const { address, mobile, eMail, content } = useContext(PageContext);
+const KontaktPage = (props) => {
+  const { address, mobile, eMail } = useContext(PageContext);
 
   return (
     <> 
-      <StyledWrapper className="wrapper">
-        <h1>Skontaktuj się z nami</h1>
-        <StyledFlex>
+      <NavigationWrapper className="wrapper" > 
+        <Navigation />
+      </NavigationWrapper>
+      <StyledWrapper>
+          <StyledFlexChild type="data">
+            <div>
+              <StyledLogo />
+              <StyledParagraph>
+                {address}
+              </StyledParagraph>
+              <StyledParagraph>
+                <a href={`tel: ${mobile}`}>{mobile}</a>
+                <br />
+                <a href={`mailto: ${eMail}`}>{eMail}</a>
+              </StyledParagraph>
+            </div>
+          </StyledFlexChild>
           <StyledFlexChild>
-            <StyledParagraph>
-              {address}
-            </StyledParagraph>
-            <StyledParagraph>
-              <a href={`tel: ${mobile}`}>{mobile}</a>
-              <br />
-              <a href={`mailto: ${eMail}`}>{eMail}</a>
-            </StyledParagraph>
+            <Formik
+              initialValues={{
+                name: '',
+                email: '',
+                message: '',
+              }}
+              onSubmit={async (values) => {
+                await new Promise((r) => setTimeout(r, 500));
+                alert(JSON.stringify(values, null, 2));
+              }}
+            >
+              {({values, handleChange, handleBlur, handleSubmit}) => (
+                <StyledForm onSubmit={handleSubmit}>
+                  <label htmlFor="name">Imię i nazwisko</label>
+                  <StyledField 
+                    id="name" 
+                    name="name" 
+                    type="text" 
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.name}
+                  />
+
+                  <label htmlFor="email">Twój E-mail</label>
+                  <StyledField
+                    id="email"
+                    name="email"
+                    type="email"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.email}
+                  />
+
+                  <label htmlFor="message">Twoja wiadomość</label>
+                  <StyledField 
+                    as='textarea'
+                    id="message" 
+                    name="message" 
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.message}
+                  />
+
+                  <Button color='primary' as='button' type="submit">Wyślij</Button>
+                </StyledForm>
+              )}
+            </Formik>
           </StyledFlexChild>
-          <StyledFlexChild
-            as={Formik}
-            initialValues={{
-              name: '',
-              email: '',
-              message: '',
-            }}
-            onSubmit={async (values) => {
-              await new Promise((r) => setTimeout(r, 500));
-              alert(JSON.stringify(values, null, 2));
-            }}
-          >
-            {({values, handleChange, handleBlur, handleSubmit}) => (
-              <StyledForm onSubmit={handleSubmit}>
-                <label htmlFor="name">Imię i nazwisko</label>
-                <StyledField 
-                  id="name" 
-                  name="name" 
-                  type="text" 
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.name}
-                />
-
-                <label htmlFor="email">Twój E-mail</label>
-                <StyledField
-                  id="email"
-                  name="email"
-                  type="email"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.email}
-                />
-
-                <label htmlFor="message">Twoja wiadomość</label>
-                <StyledField 
-                  as='textarea'
-                  id="message" 
-                  name="message" 
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.message}
-                />
-
-                <Button color='primary' as='button' type="submit">Wyślij</Button>
-              </StyledForm>
-            )}
-          </StyledFlexChild>
-        </StyledFlex>
-        
       </StyledWrapper>
     </>
   )

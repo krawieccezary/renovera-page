@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
 
 
-const Logo = () => {
+const Logo = ({ className }) => {
   const image = useStaticQuery(
     graphql`
       {
@@ -19,9 +19,7 @@ const Logo = () => {
   );
 
 
-  return (
-    <Image fixed={image.file.childImageSharp.fixed} />
-  )
+  return <Image className={className} fixed={image.file.childImageSharp.fixed} />
 
 }
 

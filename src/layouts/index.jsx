@@ -16,7 +16,7 @@ const StyledMain = styled.main`
   flex-grow: 1;
 `;
 
-const MainLayout = ({ children }) => { 
+const MainLayout = ({ children, pageContext }) => { 
   const { datoCmsRenoveraContact: {address, eMail, mobile, footerInfo: content}} = useStaticQuery(graphql`
     query ContactQuery {
       datoCmsRenoveraContact {
@@ -28,7 +28,17 @@ const MainLayout = ({ children }) => {
     }
   `);
 
-  return(
+  return pageContext.layout === "empty" ?
+  (
+    <ThemeProvider theme={theme}>
+      <PageContext.Provider value={{address, eMail, mobile, content}}>
+        <StyledWrapper>
+          <GlobalStyles />
+          <StyledMain>{children}</StyledMain>
+        </StyledWrapper>
+      </PageContext.Provider>
+    </ThemeProvider>
+  ) : (
     <ThemeProvider theme={theme}>
       <PageContext.Provider value={{address, eMail, mobile, content}}>
         <StyledWrapper>
