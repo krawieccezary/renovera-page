@@ -19,6 +19,7 @@ const SectionHeading = styled.h2`
     left: 0;
     background-color: ${({theme}) => theme.color.primary};
     z-index: -1;
+  }
 `;
 
 export default SectionHeading;
