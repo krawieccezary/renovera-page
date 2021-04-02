@@ -4,6 +4,12 @@ import { graphql, useStaticQuery } from 'gatsby';
 import Image from 'gatsby-image';
 import { SectionHeading, Paragraph } from '../components/index';
 
+const StyledWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  align-items: flex-start;
+`;
+
 
 const OfertaPage = () => {
   const { allDatoCmsOffersPage: { nodes: contents }}  = useStaticQuery(graphql`
@@ -27,11 +33,11 @@ const OfertaPage = () => {
     <>
       <div className="wrapper">
         {contents.map(content => (
-          <div>
+          <StyledWrapper key={content.id}>
             <Image fluid={content.offerImage.fluid}/>
-            <SectionHeading>{content.offerTitle}</SectionHeading>
+            <SectionHeading special="true">{content.offerTitle}</SectionHeading>
             <Paragraph>{content.offerDescription}</Paragraph>
-          </div>
+          </StyledWrapper>
         ))}
       </div>
     </>
