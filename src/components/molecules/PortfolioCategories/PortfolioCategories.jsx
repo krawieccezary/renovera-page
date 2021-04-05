@@ -2,6 +2,21 @@ import React from 'react';
 import slugify from 'slugify';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
+import { Button } from '../../index';
+
+const StyledWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  
+  button {
+    margin: .5rem;
+  }
+`;
+
+const getUniqueCategories = items => {
+  return [...new Set(items.map(item => item.category))];
+}
 
 const PortfolioCategories = () => {
   const { allDatoCmsPortfolio: { nodes: items } } = useStaticQuery(graphql`
@@ -9,24 +24,26 @@ const PortfolioCategories = () => {
       allDatoCmsPortfolio {
         nodes {
           category
-          id
         }
       }
     }
   `);
 
+  const categories = getUniqueCategories(items);
+
   return (
     <>
-      <div>
-        {items.map(item => (
-          <button 
-            data-category={slugify(item.category)} 
-            key={item.id}>
-            {item.category}
-          </button>
+      <StyledWrapper>
+        {categories.map(category => (
+          <Button
+            as="button"
+            color="primary" 
+            data-category={slugify(category)} 
+            key={category}>
+            {category}
+          </Button>
         ))}
-      </div>
-
+      </StyledWrapper>
     </>
   )
 };
