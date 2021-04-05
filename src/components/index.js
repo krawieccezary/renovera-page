@@ -13,3 +13,4 @@ export { default as PortfolioSection } from './organisms/PortfolioSection/Portfo
 export { default as RenoveraMap } from './organisms/RenoveraMap/RenoveraMap';
 export { default as Footer } from './organisms/Footer/Footer';
 export { default as FormField } from './atoms/FormField/FormField';
+export { default as PortfolioCategories } from './molecules/PortfolioCategories/PortfolioCategories';
