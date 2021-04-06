@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import slugify from 'slugify';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 
 import { Button } from '../../index';
-import PortfolioContext from '../../../context/PortfolioContext';
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -20,7 +19,7 @@ const getUniqueCategories = items => {
   return [...new Set(items.map(item => item.category))];
 }
 
-const PortfolioCategories = () => {
+const PortfolioCategories = ({ activeCategory, click }) => {
   const { allDatoCmsPortfolio: { nodes: items } } = useStaticQuery(graphql`
     query queryCategories {
       allDatoCmsPortfolio {
@@ -32,16 +31,21 @@ const PortfolioCategories = () => {
   `);
   const categories = getUniqueCategories(items);
 
-  const activeCategory = useContext(PortfolioContext);
-
   return (
     <>
       <StyledWrapper>
+        <Button
+          onClick={() => click('')}
+          as="button"
+          color={!activeCategory ? 'black' : 'primary'} 
+        >
+          Wszystkie
+        </Button>
         {categories.map(category => (
           <Button
+            onClick={() => click(slugify(category))}
             as="button"
             color={slugify(category) === activeCategory ? 'black' : 'primary'} 
-            data-category={slugify(category)} 
             key={category}>
             {category}
           </Button>
