@@ -43,9 +43,9 @@ const PortfolioCategories = ({ activeCategory, click }) => {
         </Button>
         {categories.map(category => (
           <Button
-            onClick={() => click(slugify(category))}
+            onClick={() => click(category)}
             as="button"
-            color={slugify(category) === activeCategory ? 'black' : 'primary'} 
+            color={category === activeCategory ? 'black' : 'primary'} 
             key={category}>
             {category}
           </Button>

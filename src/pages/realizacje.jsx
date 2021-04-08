@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
-import { PortfolioCategories } from '../components';
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { PortfolioCategories, PortfolioList } from '../components';
 
 
 const RealizacjePage = () => {
@@ -14,6 +14,7 @@ const RealizacjePage = () => {
     <div className="wrapper">  
       <h1>Realizacje</h1>
       <PortfolioCategories click={handleClick} activeCategory={activeCategory} />
+      <PortfolioList activeCategory={activeCategory} />
     </div>
   )
 }
