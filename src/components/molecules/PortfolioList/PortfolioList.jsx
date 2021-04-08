@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Heading } from '../../index';
+import { SectionHeading } from '../../index';
 
 
 const StyledWrapper = styled.div`
@@ -10,9 +10,8 @@ const StyledWrapper = styled.div`
   margin: 2rem 0;
 `;
 
-const PortfolioList = ({ activeCategory }) => {
+const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded }) => {
   const [portfolioItems, setPortfolioItems] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const query = activeCategory ? 
@@ -35,23 +34,22 @@ const PortfolioList = ({ activeCategory }) => {
     )
     .then(res => res.json())
     .then(res => {
-      console.log(res.data.allPortfolios);
       setIsLoaded(true);
-      // setPortfolioItems(res.data.allPortfolios);
+      setPortfolioItems(res.data.allPortfolios);
     })
     .catch(error => {
       console.log(error);
     })
 
-  }, []);
+  }, [activeCategory]);
 
   return (
     <StyledWrapper>
       {isLoaded ? portfolioItems.map(item => (
         <div key={item.id}>
-          <Heading>{item.title}</Heading>
+          <SectionHeading>{item.title}</SectionHeading>
         </div>
-      )) : 'loading'}
+      )) : 'loading...'}
     </StyledWrapper>
   )
 }
