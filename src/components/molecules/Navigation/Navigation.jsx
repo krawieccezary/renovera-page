@@ -11,6 +11,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   margin: 0 5px;
   padding: 0 10px;
+  font-size: ${({theme}) => theme.fontSize.normal};
 `;
 
 const Navigation = ({ className, location }) => (

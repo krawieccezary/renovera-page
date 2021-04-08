@@ -10,7 +10,7 @@ const StyledWrapper = styled(Link)`
   border: ${({theme, color}) => theme.color[color]};
 `;
 
-const Button = ({ color, children, to, as }) => (
+const Button = ({ color, children, to, as, onClick }) => (
   <>
     {as === 'button' ? 
     (
@@ -18,6 +18,7 @@ const Button = ({ color, children, to, as }) => (
         color={color} 
         to={to}
         as={as}
+        onClick={onClick}
       >
       {children}
       </StyledWrapper>
