@@ -3,6 +3,7 @@
  *
  * See: https://www.gatsbyjs.com/docs/node-apis/
  */
+const path = require(`path`)
 
 
 exports.onCreatePage = ({ page, actions }) => {
@@ -12,4 +13,31 @@ exports.onCreatePage = ({ page, actions }) => {
     page.context.layout = "empty"
     createPage(page)
   }
+}
+
+
+
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions
+  const singlePortfolioTemplate = path.resolve(`src/templates/single-portfolio.jsx`)
+  const result = await graphql(`
+    query portfoliosQuery {
+      allDatoCmsPortfolio {
+        nodes {
+          id
+          slug
+        }
+      }
+    }
+  `);
+
+  result.data.allDatoCmsPortfolio.nodes.forEach(portfolio => {
+    createPage({
+      path: `realizacje/${portfolio.slug}`,
+      component: singlePortfolioTemplate,
+      context: {
+        id: portfolio.id,
+      },
+    })
+  })
 }

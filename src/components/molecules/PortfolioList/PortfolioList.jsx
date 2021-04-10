@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Image } from 'react-datocms';
+import { Link } from 'gatsby';
 import { SectionHeading } from '../../index';
 
 
@@ -16,7 +17,7 @@ const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded }) => {
 
   useEffect(() => {
     const query = activeCategory ? 
-    `{ allPortfolios(filter: {category: {eq: "${activeCategory}"}}) { id, category, title, 
+    `{ allPortfolios(filter: {category: {eq: "${activeCategory}"}}) { id, category, title, slug, 
       images {responsiveImage(imgixParams: { fit: crop, w: 300, h: 300, auto: format }) {
       srcSet
       webpSrcSet
@@ -29,7 +30,7 @@ const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded }) => {
       title
       base64
     }} } }` 
-    : `{ allPortfolios { id, category, title, 
+    : `{ allPortfolios { id, category, title, slug,
       images {responsiveImage(imgixParams: { fit: crop, w: 300, h: 300, auto: format }) {
       srcSet
       webpSrcSet
@@ -73,10 +74,10 @@ const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded }) => {
   return (
     <StyledWrapper>
       {portfolioItems.map(item => (
-        <div key={item.id}>
+        <Link key={item.id} to={item.slug}>
           <Image data={item.images[0].responsiveImage} />
           <SectionHeading>{item.title}</SectionHeading>
-        </div>
+        </Link>
       ))}
     </StyledWrapper>
   )
