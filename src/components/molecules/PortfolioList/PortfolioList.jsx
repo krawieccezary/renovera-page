@@ -45,7 +45,7 @@ const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded }) => {
     } }} }`;
 
     fetch(
-      process.env.DATOCMS_API_URL,
+      'https://graphql.datocms.com/',
       {
         method: 'POST',
         headers: {
