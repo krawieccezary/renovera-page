@@ -44,6 +44,7 @@ const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded }) => {
       base64
     } }} }`;
 
+    console.log(query);
     fetch(
       'https://graphql.datocms.com/',
       {
@@ -58,9 +59,7 @@ const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded }) => {
         })
       }
     )
-    .then(res => {
-      console.log(res);
-      return res.json()})
+    .then(res => res.json())
     .then(res => {
       setIsLoaded(true);
       setPortfolioItems(res.data.allPortfolios);
