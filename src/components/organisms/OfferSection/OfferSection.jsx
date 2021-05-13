@@ -12,27 +12,6 @@ const StyledGrid = styled.div`
   margin: 2em 0;
 `;
 
-const StyledTitle = styled.h3`
-  font-size: 2rem;
-  margin: 0;
-  text-transform: uppercase;
-  color: ${({theme}) => theme.color.black};
-  position: relative;
-  display: inline-block;
-  padding: 0 1rem;
-
-  &::before {
-    position: absolute;
-    content: '';
-    width: 100%;
-    height: 15px;
-    top: 50%;
-    left: 0;
-    background-color: ${({theme}) => theme.color.primary};
-    z-index: -1;
-  }
-`;
-
 
 const OfferSection = () => {
   const { allDatoCmsOffersPage: { nodes: contents }}  = useStaticQuery(graphql`

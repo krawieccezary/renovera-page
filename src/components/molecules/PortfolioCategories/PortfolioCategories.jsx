@@ -1,5 +1,4 @@
 import React from 'react';
-import slugify from 'slugify';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 

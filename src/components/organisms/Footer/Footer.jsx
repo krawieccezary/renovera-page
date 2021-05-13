@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { Link } from 'gatsby';
 import { Logo, Navigation, Paragraph } from '../../index';
 import PageContext from '../../../context/PageContext';
 

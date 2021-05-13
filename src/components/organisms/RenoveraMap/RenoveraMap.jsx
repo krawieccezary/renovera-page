@@ -1,7 +1,5 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby';
-import { MapContainer, TileLayer, Marker, Popup, Circle, Icon } from 'react-leaflet';
-import Leaflet from 'leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 
 
 const circleCenter = [52.8687126, 18.0255176];
@@ -11,26 +9,6 @@ const fillBlueOptions = {
 };
 
 const RenoveraMap = () => {
-  const { file: {childImageSharp: {fixed: {src: image}}}} = useStaticQuery(graphql`
-      {
-      file(name: {regex: "/logo/i"}) {
-        childImageSharp {
-          fixed(height: 100, quality: 90){
-            src
-          }
-        }
-      }
-    }
-  `);
-  console.log(image);
-  // const MyIcon = Leaflet.Icon({
-  //   iconUrl: image,
-  //   iconSize: [38, 95],
-  //   iconAnchor: [22, 94],
-  //   popupAnchor: [-3, -76],
-  // });
-
-  
 
   if (typeof window !== 'undefined') {
     return (

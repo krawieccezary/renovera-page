@@ -17,7 +17,6 @@ const StyledMain = styled.main`
 `;
 
 const MainLayout = ({ children, pageContext }) => { 
-  console.log(pageContext);
   const { datoCmsRenoveraContact: {address, eMail, mobile, footerInfo: content}} = useStaticQuery(graphql`
     query ContactQuery {
       datoCmsRenoveraContact {
