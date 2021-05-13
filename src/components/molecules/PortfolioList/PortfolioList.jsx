@@ -58,7 +58,9 @@ const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded }) => {
         })
       }
     )
-    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      return res.json()})
     .then(res => {
       setIsLoaded(true);
       setPortfolioItems(res.data.allPortfolios);
