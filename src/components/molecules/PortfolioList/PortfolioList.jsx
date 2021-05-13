@@ -44,7 +44,6 @@ const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded }) => {
       base64
     } }} }`;
 
-    console.log(query);
     fetch(
       'https://graphql.datocms.com/',
       {
