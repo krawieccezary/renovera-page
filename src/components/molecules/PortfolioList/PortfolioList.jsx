@@ -12,62 +12,72 @@ const StyledWrapper = styled.div`
   margin: 2rem 0;
 `;
 
+function getQuery(activeCategory){
+  return activeCategory ? 
+  `{ allPortfolios(filter: {category: {eq: "${activeCategory}"}}) { id, category, title, slug, 
+    images {responsiveImage(imgixParams: { fit: crop, w: 300, h: 300, auto: format }) {
+    srcSet
+    webpSrcSet
+    sizes
+    src
+    width
+    height
+    aspectRatio
+    alt
+    title
+    base64
+  }} } }` 
+  : `{ allPortfolios { id, category, title, slug,
+    images {responsiveImage(imgixParams: { fit: crop, w: 300, h: 300, auto: format }) {
+    srcSet
+    webpSrcSet
+    sizes
+    src
+    width
+    height
+    aspectRatio
+    alt
+    title
+    base64
+  } }} }`;
+}
+
+async function fetchData(activeCategory){
+  return await fetch(
+    process.env.DATOCMS_API_URL,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${process.env.DATOCMS_API}`,
+      },
+      body: JSON.stringify({
+        query: getQuery(activeCategory)
+      })
+    }
+  )
+}
+
 const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded }) => {
   const [portfolioItems, setPortfolioItems] = useState([]);
 
   useEffect(() => {
-    const query = activeCategory ? 
-    `{ allPortfolios(filter: {category: {eq: "${activeCategory}"}}) { id, category, title, slug, 
-      images {responsiveImage(imgixParams: { fit: crop, w: 300, h: 300, auto: format }) {
-      srcSet
-      webpSrcSet
-      sizes
-      src
-      width
-      height
-      aspectRatio
-      alt
-      title
-      base64
-    }} } }` 
-    : `{ allPortfolios { id, category, title, slug,
-      images {responsiveImage(imgixParams: { fit: crop, w: 300, h: 300, auto: format }) {
-      srcSet
-      webpSrcSet
-      sizes
-      src
-      width
-      height
-      aspectRatio
-      alt
-      title
-      base64
-    } }} }`;
+    fetchData(activeCategory)
+      .then(res => {
+        console.log(res);
+        return res.json();
+      })
+      .then(res => {
+        setIsLoaded(true);
+        setPortfolioItems(res.data.allPortfolios);
+      })
+      .catch(err => {
+        throw new Error("Aborting: DatoCMS request failed with " + err.message);
+      });
+    
 
-    fetch(
-      process.env.DATOCMS_API_URL,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': `Bearer ${process.env.DATOCMS_API}`,
-        },
-        body: JSON.stringify({
-          query: query
-        })
-      }
-    )
-    .then(res => res.json())
-    .then(res => {
-      setIsLoaded(true);
-      setPortfolioItems(res.data.allPortfolios);
-    })
-    .catch(error => {
-      console.log(error);
-    })
-
-  }, [activeCategory]);
+  }, [activeCategory, setIsLoaded]);
 
   if(!isLoaded) return 'loading...';
 
