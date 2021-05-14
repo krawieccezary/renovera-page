@@ -63,58 +63,6 @@ const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded }) => {
   const [portfolioItems, setPortfolioItems] = useState([]);
 
   useEffect(() => {
-<<<<<<< HEAD
-    const query = activeCategory ? 
-    `{ allPortfolios(filter: {category: {eq: "${activeCategory}"}}) { id, category, title, slug, 
-      images {responsiveImage(imgixParams: { fit: crop, w: 300, h: 300, auto: format }) {
-      srcSet
-      webpSrcSet
-      sizes
-      src
-      width
-      height
-      aspectRatio
-      alt
-      title
-      base64
-    }} } }` 
-    : `{ allPortfolios { id, category, title, slug,
-      images {responsiveImage(imgixParams: { fit: crop, w: 300, h: 300, auto: format }) {
-      srcSet
-      webpSrcSet
-      sizes
-      src
-      width
-      height
-      aspectRatio
-      alt
-      title
-      base64
-    } }} }`;
-
-    fetch(
-      'https://graphql.datocms.com/',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': `Bearer ${process.env.DATOCMS_API}`,
-        },
-        body: JSON.stringify({
-          query: query
-        })
-      }
-    )
-    .then(res => res.json())
-    .then(res => {
-      setIsLoaded(true);
-      setPortfolioItems(res.data.allPortfolios);
-    })
-    .catch(error => {
-      console.log(error);
-    })
-=======
     fetchData(activeCategory)
       .then(res => {
         console.log(res);
@@ -128,7 +76,6 @@ const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded }) => {
         throw new Error("Aborting: DatoCMS request failed with " + err.message);
       });
     
->>>>>>> portfolio-page
 
   }, [activeCategory, setIsLoaded]);
 
