@@ -47,6 +47,8 @@ async function fetchData(activeCategory){
     'https://graphql.datocms.com/',
     {
       method: 'POST',
+      mode: 'cors',
+      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
