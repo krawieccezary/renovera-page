@@ -44,13 +44,13 @@ function getQuery(activeCategory){
 
 async function fetchData(activeCategory){
   return await fetch(
-    process.env.DATOCMS_API_URL,
+    process.env.GATSBY_API_URL,
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': `Bearer ${process.env.DATOCMS_API}`,
+        'Authorization': `Bearer ${process.env.GATSBY_API_KEY}`,
       },
       body: JSON.stringify({
         query: getQuery(activeCategory)
