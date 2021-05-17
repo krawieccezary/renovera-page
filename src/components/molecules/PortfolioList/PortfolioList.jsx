@@ -44,7 +44,7 @@ function getQuery(activeCategory){
 
 async function fetchData(activeCategory){
   return await fetch(
-    'https://graphql.datocms.com/',
+    process.env.GATSBY_API_URL,
     {
       method: 'POST',
       mode: 'cors',
@@ -52,7 +52,7 @@ async function fetchData(activeCategory){
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': `Bearer e2bae82c0dc69a33e0747fcf95f5b2`,
+        'Authorization': `Bearer ${process.env.GATSBY_API_KEY}`,
       },
       body: JSON.stringify({
         query: getQuery(activeCategory)
