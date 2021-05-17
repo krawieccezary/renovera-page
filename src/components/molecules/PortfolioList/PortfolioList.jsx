@@ -52,7 +52,7 @@ async function fetchData(activeCategory){
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': `Bearer ${process.env.DATOCMS_API}`,
+        'Authorization': `Bearer e2bae82c0dc69a33e0747fcf95f5b2`,
       },
       body: JSON.stringify({
         query: getQuery(activeCategory)
