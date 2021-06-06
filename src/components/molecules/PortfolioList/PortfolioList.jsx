@@ -2,14 +2,29 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Image } from 'react-datocms';
 import { Link } from 'gatsby';
-import { SectionHeading } from '../../index';
 
 
 const StyledWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 1rem;
+  grid-gap: 1rem 2rem;
   margin: 2rem 0;
+`;
+
+const StyledLink = styled(Link)`
+  img {
+    transform: scale(1.1);
+    transition: transform .3s ease-in-out, opacity 500ms ease 500ms !important;
+  }
+
+  &:hover img {
+    transform: scale(1);
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 500;
+  }
 `;
 
 function getQuery(activeCategory){
@@ -88,10 +103,10 @@ const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded, setListHeight, p
   return (
     <StyledWrapper ref={portfolioListRef}>
       {portfolioItems.map(item => (
-        <Link key={item.id} to={item.slug}>
+        <StyledLink key={item.id} to={item.slug}>
           <Image data={item.images[0].responsiveImage} />
-          <SectionHeading>{item.title}</SectionHeading>
-        </Link>
+          <h2>{item.title}</h2>
+        </StyledLink>
       ))}
     </StyledWrapper>
   )
