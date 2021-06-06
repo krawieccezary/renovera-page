@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Logo, Navigation, TopBarLink } from '../../index';
 import { Link } from 'gatsby';
@@ -8,6 +8,20 @@ const StyledHeader = styled.header`
   top: -33px;
   background-color: rgba(255,255,255,.9);
   z-index: 5;
+  height: 99px;
+
+  .logo-wrap {
+    .gatsby-image-wrapper {
+      max-width: 100px;
+      max-height: 100px;
+      transition: transform .3s ease-in-out, max-height .3s ease-in-out, max-width .3s ease-in-out;
+    }
+    &.small .gatsby-image-wrapper {
+      transform: translateY(16px);
+      max-height: 67px;
+      max-width: 67px
+    }
+  }
 `;
 
 const StyledWrapper = styled.div`
@@ -45,21 +59,46 @@ const StyledLink = styled(Link)`
   margin-bottom: -5px;
 `;
 
-const Header = () => (
-  <StyledWrapper as={StyledHeader}>
-    <TopBarStyled>
-      <div className="wrapper">
-        <TopBarLink icon='tel' href='tel:514252914'>514 252 914</TopBarLink>
-        <TopBarLink icon='email' href='mailto:kontakt@renovera.pl'>kontakt@renovera.pl</TopBarLink>
-      </div>
-    </TopBarStyled> 
-    <StyledWrapper className="wrapper">
-      <StyledLink to='/'>
-        <Logo />
-      </StyledLink>
-      <Navigation />
+
+
+
+const Header = () => {
+  const logoRef = useRef(null);
+
+  const changeLogoSize = () => {
+    if(window.pageYOffset > 0){
+      logoRef.current.classList.add('small');
+    } else {
+      logoRef.current.classList.remove('small');
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', changeLogoSize);
+
+    return () => window.removeEventListener('scroll', changeLogoSize);
+
+  }, []);
+
+
+  return (
+    <StyledWrapper as={StyledHeader}>
+      <TopBarStyled>
+        <div className="wrapper">
+          <TopBarLink icon='tel' href='tel:514252914'>514 252 914</TopBarLink>
+          <TopBarLink icon='email' href='mailto:kontakt@renovera.pl'>kontakt@renovera.pl</TopBarLink>
+        </div>
+      </TopBarStyled> 
+      <StyledWrapper className="wrapper">
+        <StyledLink to='/'>
+          <div ref={logoRef} className="logo-wrap">
+            <Logo />
+          </div>
+        </StyledLink>
+        <Navigation />
+      </StyledWrapper>
     </StyledWrapper>
-  </StyledWrapper>
-)
+  )
+}
 
 export default Header;

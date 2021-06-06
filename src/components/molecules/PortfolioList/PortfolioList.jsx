@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Image } from 'react-datocms';
 import { Link } from 'gatsby';
@@ -61,30 +61,32 @@ async function fetchData(activeCategory){
   )
 }
 
-const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded }) => {
+
+const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded, setListHeight, portfolioListWrapRef }) => {
   const [portfolioItems, setPortfolioItems] = useState([]);
+  const portfolioListRef = useRef(null);
 
   useEffect(() => {
     fetchData(activeCategory)
       .then(res => {
-        console.log(res);
         return res.json();
       })
       .then(res => {
         setIsLoaded(true);
         setPortfolioItems(res.data.allPortfolios);
+        setListHeight(portfolioListWrapRef.current, portfolioListRef.current.offsetHeight);
       })
       .catch(err => {
         throw new Error("Aborting: DatoCMS request failed with " + err.message);
       });
-    
 
-  }, [activeCategory, setIsLoaded]);
+  }, [activeCategory, setIsLoaded, portfolioListWrapRef, setListHeight]);
+ 
 
   if(!isLoaded) return 'loading...';
 
   return (
-    <StyledWrapper>
+    <StyledWrapper ref={portfolioListRef}>
       {portfolioItems.map(item => (
         <Link key={item.id} to={item.slug}>
           <Image data={item.images[0].responsiveImage} />

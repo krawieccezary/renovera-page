@@ -63,6 +63,7 @@ const PortfolioSection = () => {
         nodes {
           id
           title
+          slug
           images {
             fluid {
               ...GatsbyDatoCmsFluid_tracedSVG
@@ -76,8 +77,8 @@ const PortfolioSection = () => {
   return (
     <>
       <StyledGrid>
-        {items.map(({ id, title, images }) => (
-          <PortfolioItem key={id} title={title} image={images[0].fluid} />
+        {items.map(({ id, title, slug, images }) => (
+          <PortfolioItem key={id} title={title} slug={slug} image={images[0].fluid} />
         ))}
         <ButtonWrapper>
           <Button color='secondary' to='/realizacje'>Zobacz więcej</Button>

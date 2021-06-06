@@ -68,9 +68,9 @@ const StyledIcon = styled(FontAwesomeIcon)`
   }
 `;
 
-const PortfolioItem = ({ title, image }) => {
+const PortfolioItem = ({ title, image, slug }) => {
   return (
-    <StyledWrapper to='/realizacje'>
+    <StyledWrapper to={`/realizacje/${slug}`}>
       <StyledImage fluid={image} />
       <TitleOverlay>
         <StyledTitle>{title}</StyledTitle>
