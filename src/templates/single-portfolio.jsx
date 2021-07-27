@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';  
+import { SectionHeading } from '../components'
 
 const StyledGallery = styled.div`
   display: grid;
@@ -26,7 +27,7 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const StyledHero = styled.h1`
+const StyledHero = styled(SectionHeading)`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -36,8 +37,15 @@ const StyledHero = styled.h1`
   text-transform: uppercase;
   font-size: 5rem;
   letter-spacing: 2px;
-  width: 100%;
   text-align: center;
+  display: block;
+  width: max-content;
+  text-shadow: 1px 1px 5px rgba(0,0,0,.4);
+
+  &::before {
+    height: 50%;
+    box-shadow: 1px 1px 10px -1px rgba(0,0,0,.4)
+  }
 `;
 
 export const query = graphql`
@@ -61,7 +69,7 @@ const singlePortfolio = ({ data: {datoCmsPortfolio: { description, title, date, 
   return (
     <>
       <StyledWrapper>
-        <StyledHero>{title}</StyledHero>
+        <StyledHero as="h1" special>{title}</StyledHero>
         <Image fluid={images[0].fluid} />
       </StyledWrapper>
       <StyledGallery className="wrapper">
