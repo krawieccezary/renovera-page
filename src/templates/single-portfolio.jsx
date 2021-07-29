@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { gsap } from 'gsap';
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';  
 import { SectionHeading } from '../components'
+
 
 const StyledGallery = styled.div`
   display: grid;
@@ -15,24 +17,43 @@ const StyledWrapper = styled.div`
   position: relative;
   height: 80vh;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  & > div {
+  & > .gatsby-image-wrapper {
+    position: absolute !important;
+    top: 0;
+    left: 0;
     height: 100%;
-  }
-
-  img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    z-index: -1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+`;
+
+const StyledHeroWrapper = styled.div`
+  overflow: hidden;
+  position: absolute;
+
+  &::before {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background-color: ${({theme}) => theme.color.primary};
+    box-shadow: 1px 1px 10px -1px rgba(0,0,0,.4)
   }
 `;
 
 const StyledHero = styled(SectionHeading)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
   color: #fff;
   text-transform: uppercase;
   font-size: 5rem;
@@ -41,8 +62,15 @@ const StyledHero = styled(SectionHeading)`
   display: block;
   width: max-content;
   text-shadow: 1px 1px 5px rgba(0,0,0,.4);
+  transition: transform .5s .3s ease-in-out;
+  transform: translateY(100%);
+
+  &.active {
+    transform: translateY(0);
+  }
 
   &::before {
+    display: none;
     height: 50%;
     box-shadow: 1px 1px 10px -1px rgba(0,0,0,.4)
   }
@@ -65,11 +93,23 @@ export const query = graphql`
   }
 `;
 
-const singlePortfolio = ({ data: {datoCmsPortfolio: { description, title, date, images }} }) => {
+
+const SinglePortfolio = ({ data: {datoCmsPortfolio: { description, title, date, images }} }) => {
+  const heroRef = useRef(null);
+
+  useEffect(() => {
+    console.log(heroRef);
+    setTimeout(()=> {
+      heroRef.current.classList.add('active');
+    }, 100);
+  },[])
+
   return (
     <>
       <StyledWrapper>
-        <StyledHero as="h1" special>{title}</StyledHero>
+        <StyledHeroWrapper>
+          <StyledHero ref={heroRef} as="h1" special>{title}</StyledHero>
+        </StyledHeroWrapper>
         <Image fluid={images[0].fluid} />
       </StyledWrapper>
       <StyledGallery className="wrapper">
@@ -79,4 +119,4 @@ const singlePortfolio = ({ data: {datoCmsPortfolio: { description, title, date, 
   )
 }
 
-export default singlePortfolio;
+export default SinglePortfolio;
