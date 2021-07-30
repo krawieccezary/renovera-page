@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { gsap } from 'gsap';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';  
-import { SectionHeading } from '../components'
+import { SectionHeading } from '../components';
 
 
 const StyledGallery = styled.div`
@@ -40,17 +41,6 @@ const StyledWrapper = styled.div`
 const StyledHeroWrapper = styled.div`
   overflow: hidden;
   position: absolute;
-
-  &::before {
-    position: absolute;
-    content: '';
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background-color: ${({theme}) => theme.color.primary};
-    box-shadow: 1px 1px 10px -1px rgba(0,0,0,.4)
-  }
 `;
 
 const StyledHero = styled(SectionHeading)`
@@ -62,12 +52,9 @@ const StyledHero = styled(SectionHeading)`
   display: block;
   width: max-content;
   text-shadow: 1px 1px 5px rgba(0,0,0,.4);
-  transition: transform .5s .3s ease-in-out;
   transform: translateY(100%);
-
-  &.active {
-    transform: translateY(0);
-  }
+  position: relative;
+  z-index: 1;
 
   &::before {
     display: none;
@@ -75,6 +62,16 @@ const StyledHero = styled(SectionHeading)`
     box-shadow: 1px 1px 10px -1px rgba(0,0,0,.4)
   }
 `;
+
+const StyledHeroBackground = styled.div`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-color: ${({theme}) => theme.color.primary};  
+  height: 1px;
+  width: 1px;
+`;
+
 
 export const query = graphql`
   query singlePortfolio($id: String!) {
@@ -93,24 +90,46 @@ export const query = graphql`
   }
 `;
 
+const animateBannerHero = (heroBackgroundRef, heroRef) => {
+  const tl = gsap.timeline({});
+  tl.to(heroBackgroundRef, {width: '100%', duration: 1, delay: .5})
+    .to(heroBackgroundRef, {height: '50%', duration: .7})
+    .to(heroRef, {duration:.7, y: 0}, '-=.7');
+}
+
+const animateBannerImageOnScroll = bannerImageRef => {
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.to(bannerImageRef, {
+    duration: 1, 
+    scale: 1.2,
+    scrollTrigger: {
+      trigger: bannerImageRef, 
+      start: "top top",
+      markers: true,
+      scrub: true
+    }
+  })
+}
+
 
 const SinglePortfolio = ({ data: {datoCmsPortfolio: { description, title, date, images }} }) => {
   const heroRef = useRef(null);
+  const heroBackgroundRef = useRef(null);
+  const bannerImageRef = useRef(null);
 
   useEffect(() => {
-    console.log(heroRef);
-    setTimeout(()=> {
-      heroRef.current.classList.add('active');
-    }, 100);
-  },[])
+    animateBannerHero(heroBackgroundRef.current, heroRef.current);
+    animateBannerImageOnScroll(bannerImageRef.current.imageRef.current);
+  },[]);
 
   return (
     <>
       <StyledWrapper>
         <StyledHeroWrapper>
           <StyledHero ref={heroRef} as="h1" special>{title}</StyledHero>
+          <StyledHeroBackground ref={heroBackgroundRef}></StyledHeroBackground>
         </StyledHeroWrapper>
-        <Image fluid={images[0].fluid} />
+        <Image ref={bannerImageRef} fluid={images[0].fluid} />
       </StyledWrapper>
       <StyledGallery className="wrapper">
         {images.map(image => <Image key={image.originalId} fluid={image.fluid} />)}
