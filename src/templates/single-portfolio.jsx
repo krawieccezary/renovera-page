@@ -90,22 +90,23 @@ export const query = graphql`
   }
 `;
 
-const animateBannerHero = (heroBackgroundRef, heroRef) => {
+const animateBannerHero = (heroBackgroundRef, heroRef, bannerImageRef, bannerImage2Ref) => {
   const tl = gsap.timeline({});
+  gsap.set(bannerImageRef, {clipPath: 'polygon(10% 10%, 90% 10%, 90% 90%, 10% 90%)'});
   tl.to(heroBackgroundRef, {width: '100%', duration: 1, delay: .5})
-    .to(heroBackgroundRef, {height: '50%', duration: .7})
-    .to(heroRef, {duration:.7, y: 0}, '-=.7');
+    .to(heroBackgroundRef, {height: '50%', duration: .7, ease: "power3.out"})
+    .to(heroRef, {duration:.7, y: 0}, '-=.7')
+    .to(bannerImageRef, {duration: 1.7, ease: "power3.out", clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)"}, '-=.6');
 }
 
 const animateBannerImageOnScroll = bannerImageRef => {
   gsap.registerPlugin(ScrollTrigger);
   gsap.to(bannerImageRef, {
     duration: 1, 
-    scale: 1.2,
+    scale: 1.15,
     scrollTrigger: {
       trigger: bannerImageRef, 
-      start: "top top",
-      markers: true,
+      start: "=-99px top",
       scrub: true
     }
   })
@@ -118,7 +119,7 @@ const SinglePortfolio = ({ data: {datoCmsPortfolio: { description, title, date, 
   const bannerImageRef = useRef(null);
 
   useEffect(() => {
-    animateBannerHero(heroBackgroundRef.current, heroRef.current);
+    animateBannerHero(heroBackgroundRef.current, heroRef.current, bannerImageRef.current.imageRef.current);
     animateBannerImageOnScroll(bannerImageRef.current.imageRef.current);
   },[]);
 
