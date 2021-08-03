@@ -22,8 +22,6 @@ const StyledContent = styled.div`
   padding-top: 2rem;
 `;
 
-
-
 const OfertaPage = () => {
   const { allDatoCmsOffersPage: { nodes: contents }}  = useStaticQuery(graphql`
     query offersPageQuery {
