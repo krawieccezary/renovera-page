@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
 import { PortfolioCategories, PortfolioList, Paragraph } from '../components';
@@ -117,6 +118,7 @@ const RealizacjePage = ({data: {datoCmsPortfolioPageIntro: { image1, image2, hea
   const descriptionRef = useRef(null);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
     const tl = gsap.timeline();
     const hero = heroRef.current;
     const images = Array.from(imagesRef.current.children).reverse();
@@ -128,6 +130,19 @@ const RealizacjePage = ({data: {datoCmsPortfolioPageIntro: { image1, image2, hea
     .fromTo(images[1].firstElementChild, {scale: 1.6, ease: 'power3.easeOut'}, {duration: 1.3, scale: 1}, '-=1')
     .to(headingLines, {duration: .8, y: 0, stagger: .2, ease: "power3.easeOut"}, '-=1')
     .to(descriptionRef.current, {duration: .8, y: 0, opacity: 1, ease: 'power3.easeOut'}, '-=.5');
+
+    [images[0].firstElementChild, images[1].firstElementChild].forEach(image => {
+      gsap.set(image, {scale: 1});
+      gsap.to(image, {
+        duration: 1, 
+        scale: 1.15,
+        scrollTrigger: {
+          trigger: image,
+          start: '-=120% top',
+          scrub: true
+        }
+      })
+    })
 
   },[]);
 
