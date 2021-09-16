@@ -1,10 +1,11 @@
 import React from 'react';
 import { Slider, ContentBox, IconsBox, OfferSection, PortfolioSection } from '../components';
+import SliderLiquid from '../components/organisms/Slider/SliderLiquid';
 import { RenoveraMap } from '../components/index';
 
 const HomePage = () => (
   <>
-    <Slider />
+    <SliderLiquid />
     <ContentBox />
     <IconsBox />
     <OfferSection />

@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
-import { PortfolioCategories, PortfolioList, Paragraph } from '../components';
+import { PortfolioCategories, PortfolioList, Paragraph, Button } from '../components';
 
 
 const StyledPortfolioPageHero = styled.div`
@@ -81,6 +81,42 @@ const StyledParagraph = styled(Paragraph)`
   opacity: 0;
 `;
 
+const StyledDownButton = styled.button`
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  outline: none;
+  margin-top: 2rem;
+  padding-right: calc(30px + .5em);
+  position: relative;
+
+  &::after {
+    position: absolute;
+    content: '';
+    top: 50%;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    background-color: ${({theme}) => theme.color.primary}
+  } 
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 50%;
+    right: 15px;
+    width: 2px;
+    height: 15px;
+    transform: translateY(-50%);
+    background-color: ${({theme}) => theme.color.black};
+    z-index: 1;
+  }
+`;
+
+
+
 const setListHeight = (el, height) => {
   el.style.minHeight = `${height+ 10}px`;
 }
@@ -116,8 +152,19 @@ const RealizacjePage = ({data: {datoCmsPortfolioPageIntro: { image1, image2, hea
   const imagesRef = useRef(null);
   const heroHeadingRef = useRef(null);
   const descriptionRef = useRef(null);
+  const mainContentRef = useRef(null);
+
+
+  const executeScroll = () => {
+    console.log(mainContentRef.current.getBoundingClientRect());
+    window.scrollTo({ 
+      top: mainContentRef.current.getBoundingClientRect().top - 100,
+      behavior: 'smooth'
+    })  
+  }
 
   useEffect(() => {
+    console.log(mainContentRef);
     gsap.registerPlugin(ScrollTrigger);
     const tl = gsap.timeline();
     const hero = heroRef.current;
@@ -179,6 +226,7 @@ const RealizacjePage = ({data: {datoCmsPortfolioPageIntro: { image1, image2, hea
           <StyledParagraphWrapper>
             <StyledParagraph ref={descriptionRef}>{description}</StyledParagraph>
           </StyledParagraphWrapper>  
+          <Button color="primary" as="button" onClick={executeScroll}>Zobacz realizacje</Button>
         </div>
         <div className="hero__images" ref={imagesRef}>
           <div className="hero__image hero__image--left">
@@ -189,7 +237,9 @@ const RealizacjePage = ({data: {datoCmsPortfolioPageIntro: { image1, image2, hea
           </div>
         </div>
       </StyledPortfolioPageHero>
-      <PortfolioCategories click={handleClick} activeCategory={activeCategory} />
+      <div ref={mainContentRef}>
+        <PortfolioCategories click={handleClick} activeCategory={activeCategory} />
+      </div>
       <div ref={portfolioListWrapRef} >
         <PortfolioList 
           activeCategory={activeCategory} 

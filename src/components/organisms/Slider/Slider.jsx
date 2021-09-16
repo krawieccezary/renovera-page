@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 import Image from 'gatsby-image';
+import gsap from 'gsap';
 
 
 const StyledWrapper = styled.div`
