@@ -89,17 +89,19 @@ const StyledDownButton = styled.button`
   margin-top: 2rem;
   padding-right: calc(30px + .5em);
   position: relative;
+  transform: translateY(20%);
+  opacity: 0;
 
   &::after {
     position: absolute;
     content: '';
     top: 50%;
-    right: 0;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    transform: translateY(-50%);
-    background-color: ${({theme}) => theme.color.primary}
+    right: 10px;
+    width: 12px;
+    height: 12px;
+    border-bottom: 2px solid ${({theme}) => theme.color.black};
+    border-right: 2px solid ${({theme}) => theme.color.black};
+    transform: translateY(-50%) rotate(45deg);
   } 
 
   &::before {
@@ -112,6 +114,23 @@ const StyledDownButton = styled.button`
     transform: translateY(-50%);
     background-color: ${({theme}) => theme.color.black};
     z-index: 1;
+  }
+
+  span {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    background-color: ${({theme}) => theme.color.primary};
+    transition: transform 1s ${({theme}) => theme.transitions.primary};
+
+  }
+  &:hover span {
+    transform: scale(1.5) translateY(-10%);
   }
 `;
 
@@ -153,6 +172,7 @@ const RealizacjePage = ({data: {datoCmsPortfolioPageIntro: { image1, image2, hea
   const heroHeadingRef = useRef(null);
   const descriptionRef = useRef(null);
   const mainContentRef = useRef(null);
+  const scrollButtonRef = useRef(null);
 
 
   const executeScroll = () => {
@@ -176,7 +196,8 @@ const RealizacjePage = ({data: {datoCmsPortfolioPageIntro: { image1, image2, hea
     .fromTo(images[0].firstElementChild, {scale: 1.6, ease: 'power3.easeOut'}, {duration: 1.3, scale: 1}, '-=1')
     .fromTo(images[1].firstElementChild, {scale: 1.6, ease: 'power3.easeOut'}, {duration: 1.3, scale: 1}, '-=1')
     .to(headingLines, {duration: .8, y: 0, stagger: .2, ease: "power3.easeOut"}, '-=1')
-    .to(descriptionRef.current, {duration: .8, y: 0, opacity: 1, ease: 'power3.easeOut'}, '-=.5');
+    .to(descriptionRef.current, {duration: .8, y: 0, opacity: 1, ease: 'power3.easeOut'}, '-=.5')
+    .to(scrollButtonRef.current, {duration: .8, y: 0, opacity: 1, ease: 'power3.easeOut'}, '-=.5');
 
     [images[0].firstElementChild, images[1].firstElementChild].forEach(image => {
       gsap.set(image, {scale: 1});
@@ -226,7 +247,10 @@ const RealizacjePage = ({data: {datoCmsPortfolioPageIntro: { image1, image2, hea
           <StyledParagraphWrapper>
             <StyledParagraph ref={descriptionRef}>{description}</StyledParagraph>
           </StyledParagraphWrapper>  
-          <Button color="primary" as="button" onClick={executeScroll}>Zobacz realizacje</Button>
+          <StyledDownButton ref={scrollButtonRef} color="primary" as="button" onClick={executeScroll}>
+            Zobacz realizacje
+            <span></span>
+          </StyledDownButton>
         </div>
         <div className="hero__images" ref={imagesRef}>
           <div className="hero__image hero__image--left">
