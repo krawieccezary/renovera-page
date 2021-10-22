@@ -59,9 +59,8 @@ const StyledField = styled(Field)`
   min-height: ${({type}) => type ? 'auto' : '180px'};
 `;
 
-const KontaktPage = (props) => {
+const KontaktPage = () => {
   const { address, mobile, eMail } = useContext(PageContext);
-
   return (
     <> 
       <NavigationWrapper className="wrapper" > 

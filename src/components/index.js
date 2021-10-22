@@ -15,3 +15,4 @@ export { default as Footer } from './organisms/Footer/Footer';
 export { default as FormField } from './atoms/FormField/FormField';
 export { default as PortfolioCategories } from './molecules/PortfolioCategories/PortfolioCategories';
 export { default as PortfolioList } from './molecules/PortfolioList/PortfolioList';
+export { default as PageHeroBanner } from './organisms/PageHeroBanner/PageHeroBanner';
