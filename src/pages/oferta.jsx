@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
-import { SectionHeading, Paragraph } from '../components/index';
+import { SectionHeading, Paragraph, PageHeroBanner } from '../components/index';
 
 const StyledWrapper = styled.div`
   display: grid;
@@ -22,38 +22,58 @@ const StyledContent = styled.div`
   padding-top: 2rem;
 `;
 
-const OfertaPage = () => {
-  const { allDatoCmsOffersPage: { nodes: contents }}  = useStaticQuery(graphql`
-    query offersPageQuery {
-      allDatoCmsOffersPage {
-        nodes {
-          offerTitle
-          offerDescription
-          id
-          offerImage {
-            fluid {
-              ...GatsbyDatoCmsFluid_tracedSVG
-            }
+export const offersBannerContent = graphql`
+  query offersBannerContentQuery {
+    datoCmsOffersPageIntro {
+      image2 {
+        fluid {
+          srcSet
+        }
+      }
+      image1 {
+        fluid {
+          srcSet
+        }
+      }
+      header1
+      header2
+      header3
+      description,
+      buttonText
+    },
+
+    allDatoCmsOffersPage {
+      nodes {
+        offerTitle
+        offerDescription
+        id
+        offerImage {
+          fluid {
+            ...GatsbyDatoCmsFluid_tracedSVG
           }
         }
       }
     }
-  `);
+  }
+`;
+
+const OfertaPage = ({data: {datoCmsOffersPageIntro, allDatoCmsOffersPage: { nodes: contents }}}) => {
 
   return (
-    <>
-      <div className="wrapper">
-        {contents.map(content => (
-          <StyledWrapper key={content.id}>
-            <Image fluid={content.offerImage.fluid}/>
-            <StyledContent>
-              <SectionHeading special="true">{content.offerTitle}</SectionHeading>
-              <Paragraph>{content.offerDescription}</Paragraph>
-            </StyledContent>
-          </StyledWrapper>
-        ))}
-      </div>
-    </>
+    <div className="wrapper">
+      <PageHeroBanner 
+        data={datoCmsOffersPageIntro}>
+      </PageHeroBanner> 
+      {contents.map(content => (
+        <StyledWrapper key={content.id}>
+          <Image fluid={content.offerImage.fluid}/>
+          <StyledContent>
+            <SectionHeading special="true">{content.offerTitle}</SectionHeading>
+            <Paragraph>{content.offerDescription}</Paragraph>
+          </StyledContent>
+        </StyledWrapper>
+      ))}
+    </div>
   )
 }
 

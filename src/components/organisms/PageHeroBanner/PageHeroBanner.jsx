@@ -134,7 +134,7 @@ const StyledDownButton = styled.button`
   }
 `
 
-const PageHeroBanner = ({data: {header1, header2, header3, description, image1, image2}}) => {
+const PageHeroBanner = ({data: {header1, header2, header3, description, image1, image2, buttonText}}) => {
   const scrollButtonRef = useRef(null);
   const descriptionRef = useRef(null);
   const heroHeadingRef = useRef(null);
@@ -204,7 +204,7 @@ const PageHeroBanner = ({data: {header1, header2, header3, description, image1, 
           <StyledParagraph ref={descriptionRef}>{description}</StyledParagraph>
         </StyledParagraphWrapper>  
         <StyledDownButton ref={scrollButtonRef} color="primary" as="button" onClick={executeScroll}>
-          Zobacz realizacje
+          {buttonText}
           <span></span>
         </StyledDownButton>
       </div>

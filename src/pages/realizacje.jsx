@@ -24,7 +24,8 @@ export const portfolioContent = graphql`
       header1
       header2
       header3
-      description
+      description,
+      buttonText
     }
   }
 `;
