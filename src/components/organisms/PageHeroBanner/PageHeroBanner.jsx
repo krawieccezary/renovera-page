@@ -76,6 +76,23 @@ const StyledParagraphWrapper = styled.div`
   height: auto;
 `;
 
+const StyledHeroHeader = styled.div`
+  position: relative;
+  display: inline-block;
+  padding: 0 .5rem;
+
+  &::before {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background-color: ${({theme}) => theme.color.primary};
+    z-index: -1;
+  }
+`;
+
 const StyledParagraph = styled(Paragraph)`
   transform: translateY(20%);
   opacity: 0;
@@ -194,9 +211,9 @@ const PageHeroBanner = ({data: {header1, header2, header3, description, image1, 
               </div>
             </div>
             <div className="hero-header__line">
-              <div className="hero-header__line-inner">
+              <StyledHeroHeader className="hero-header__line-inner">
                 {header3}
-              </div>
+              </StyledHeroHeader>
             </div>
           </h1>
         </div>
