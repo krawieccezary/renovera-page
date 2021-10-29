@@ -52,7 +52,7 @@ const RealizacjePage = ({data: {datoCmsPortfolioPageIntro} }) => {
       >
       </PageHeroBanner>
       <div ref={mainContentRef}>
-        <PortfolioCategories click={handleClick} activeCategory={activeCategory} />
+        <PortfolioCategories chooseCategoryHandle={handleClick} activeCategory={activeCategory} />
       </div>
       <div ref={portfolioListWrapRef} >
         <PortfolioList 
