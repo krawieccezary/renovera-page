@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styled from 'styled-components';
 import { Paragraph } from '../../index';
+import brushUnderline from '../../../assets/images/brush.png';
 
 
 const StyledPageHeroBannerInnerWrap = styled.div`
@@ -11,7 +12,7 @@ const StyledPageHeroBannerInnerWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-bottom: 5rem;
+  margin-bottom: 10rem;
 
   .hero__content {
     width: 45%;
@@ -74,23 +75,27 @@ const StyledPageHeroBannerInnerWrap = styled.div`
 const StyledParagraphWrapper = styled.div`
   overflow: hidden;
   height: auto;
+  padding-right: 1em;
 `;
 
 const StyledHeroHeader = styled.div`
   position: relative;
   display: inline-block;
-  padding: 0 .5rem;
+  padding: 0 .5em .3em 0;
+`;
 
-  &::before {
-    position: absolute;
-    content: '';
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background-color: ${({theme}) => theme.color.primary};
-    z-index: -1;
-  }
+const StyledBrushUnderline = styled.div`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(${brushUnderline});
+  background-position: left 80%;
+  background-size: 100% 70%;
+  background-repeat: no-repeat;
+  transform-origin: center left;
+  z-index: -1;
 `;
 
 const StyledParagraph = styled(Paragraph)`
@@ -157,6 +162,7 @@ const PageHeroBanner = ({data: {header1, header2, header3, description, image1, 
   const heroHeadingRef = useRef(null);
   const imagesRef = useRef(null);
   const heroRef = useRef(null);
+  const styledBrushUnderlineRef = useRef(null);
 
   const executeScroll = () => {
     window.scrollTo({ 
@@ -172,13 +178,16 @@ const PageHeroBanner = ({data: {header1, header2, header3, description, image1, 
     const images = Array.from(imagesRef.current.children).reverse();
     const headingLines = heroHeadingRef.current.querySelectorAll('.hero-header__line-inner');
 
+    tl.set(styledBrushUnderlineRef.current, {clipPath: 'polygon(0 0, 0% 0, 0% 100%, 0% 100%)'});
+
     tl.to(hero, {duration: 0, css: {visibility: 'visible'}})
     .to(images, {duration: .8, delay: .5, y: 0, autoAlpha: 1, stagger: .3, ease: 'power3.easeOut'})
     .fromTo(images[0].firstElementChild, {scale: 1.6, ease: 'power3.easeOut'}, {duration: 1.3, scale: 1}, '-=1')
     .fromTo(images[1].firstElementChild, {scale: 1.6, ease: 'power3.easeOut'}, {duration: 1.3, scale: 1}, '-=1')
     .to(headingLines, {duration: .8, y: 0, stagger: .2, ease: "power3.easeOut"}, '-=1')
     .to(descriptionRef.current, {duration: .8, y: 0, opacity: 1, ease: 'power3.easeOut'}, '-=.5')
-    .to(scrollButtonRef.current, {duration: .8, y: 0, opacity: 1, ease: 'power3.easeOut'}, '-=.5');
+    .to(scrollButtonRef.current, {duration: .8, y: 0, opacity: 1, ease: 'power3.easeOut'}, '-=.5')
+    .to(styledBrushUnderlineRef.current, {duration: .7, clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', ease: 'power3.easeOut'}, '-=.5');
 
     [images[0].firstElementChild, images[1].firstElementChild].forEach(image => {
       gsap.set(image, {scale: 1});
@@ -213,6 +222,7 @@ const PageHeroBanner = ({data: {header1, header2, header3, description, image1, 
             <div className="hero-header__line">
               <StyledHeroHeader className="hero-header__line-inner">
                 {header3}
+                <StyledBrushUnderline ref={styledBrushUnderlineRef}></StyledBrushUnderline>
               </StyledHeroHeader>
             </div>
           </h1>
