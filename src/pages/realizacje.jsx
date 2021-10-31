@@ -1,11 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { graphql } from 'gatsby';
-import { PortfolioCategories, PortfolioList, PageHeroBanner } from '../components';
-
-
-const setListHeight = (el, height) => {
-  el.style.minHeight = `${height+ 10}px`;
-}
+import { PortfolioPageContent, PageHeroBanner } from '../components';
 
 
 export const portfolioContent = graphql`
@@ -32,18 +27,7 @@ export const portfolioContent = graphql`
 
 
 const RealizacjePage = ({data: {datoCmsPortfolioPageIntro} }) => {
-  console.log('test');
-  const [activeCategory, setActiveCategory] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const portfolioListWrapRef = useRef(null);
-  const mainContentRef = useRef(null);
-
-
-  const handleClick = category => {
-    setActiveCategory(category);
-    setIsLoaded(false);
-  }
-
+  console.log('test',datoCmsPortfolioPageIntro );
 
   return (
     <div className="wrapper">  
@@ -51,18 +35,7 @@ const RealizacjePage = ({data: {datoCmsPortfolioPageIntro} }) => {
         data={datoCmsPortfolioPageIntro}
       >
       </PageHeroBanner>
-      <div ref={mainContentRef}>
-        <PortfolioCategories chooseCategoryHandle={handleClick} activeCategory={activeCategory} />
-      </div>
-      <div ref={portfolioListWrapRef} >
-        <PortfolioList 
-          activeCategory={activeCategory} 
-          isLoaded={isLoaded} 
-          setIsLoaded={setIsLoaded} 
-          setListHeight={setListHeight} 
-          portfolioListWrapRef={portfolioListWrapRef}
-        />
-      </div>
+      <PortfolioPageContent></PortfolioPageContent>
     </div>
   )
 }
