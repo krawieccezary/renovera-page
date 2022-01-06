@@ -17,3 +17,5 @@ export { default as PortfolioCategories } from './molecules/PortfolioCategories/
 export { default as PortfolioPageContent } from './molecules/PortfolioPageContent/PortfolioPageContent';
 export { default as PortfolioList } from './molecules/PortfolioList/PortfolioList';
 export { default as PageHeroBanner } from './organisms/PageHeroBanner/PageHeroBanner';
+export { default as FetchError } from './molecules/FetchError/FetchError';
+export { default as LoadingSpinner } from './molecules/LoadingSpinner/LoadingSpinner';

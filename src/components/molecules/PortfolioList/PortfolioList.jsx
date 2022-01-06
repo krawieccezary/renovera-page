@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Image } from 'react-datocms';
 import { Link } from 'gatsby';
+import { FetchError, LoadingSpinner } from '../../index';
 
 
 const StyledWrapper = styled.div`
@@ -27,6 +28,13 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const StyledLoadingWrapper = styled.div`
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 function getQuery(activeCategory){
   return activeCategory ? 
   `{ allPortfolios(filter: {category: {eq: "${activeCategory}"}}) { id, category, title, slug, 
@@ -42,7 +50,8 @@ function getQuery(activeCategory){
     title
     base64
   }} } }` 
-  : `{ allPortfolios { id, category, title, slug,
+  : `{ allPortfolios
+     { id, category, title, slug,
     images {responsiveImage(imgixParams: { fit: crop, w: 300, h: 300, auto: format }) {
     srcSet
     webpSrcSet
@@ -79,26 +88,40 @@ async function fetchData(activeCategory){
 
 const PortfolioList = ({ activeCategory, isLoaded, setIsLoaded, setListHeight, portfolioListWrapRef }) => {
   const [portfolioItems, setPortfolioItems] = useState([]);
+  const [error, setFetchError] = useState(false);
   const portfolioListRef = useRef(null);
 
   useEffect(() => {
     fetchData(activeCategory)
       .then(res => {
+        setFetchError(false);
         return res.json();
       })
       .then(res => {
         setIsLoaded(true);
         setPortfolioItems(res.data.allPortfolios);
-        setListHeight(portfolioListWrapRef.current, portfolioListRef.current.offsetHeight);
+        if(portfolioListRef.current) {
+          setListHeight(portfolioListWrapRef.current, portfolioListRef.current.offsetHeight);
+        }
       })
       .catch(err => {
-        throw new Error("Aborting: DatoCMS request failed with " + err.message);
+        console.log(err);
+        setFetchError('Upsss! Coś poszło nie tak. Spróbuj wybrać inną kategorię.');
       });
 
   }, [activeCategory, setIsLoaded, portfolioListWrapRef, setListHeight]);
  
 
-  if(!isLoaded) return 'loading...';
+  if(error) {
+    return (<FetchError errorMessage={error}/>)
+  } else if(!isLoaded) {  
+      return (
+        <StyledLoadingWrapper className="wrapper">
+          <LoadingSpinner />
+        </StyledLoadingWrapper>
+      )
+  };
+
 
   return (
     <StyledWrapper ref={portfolioListRef}>
