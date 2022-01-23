@@ -3,7 +3,7 @@
   Renovera
 </h1>
 
-I created him with [Gatsby Starter Blog](https://github.com/gatsbyjs/gatsby-starter-blog) and [DatoCMS](https://www.datocms.com).
+Website created with [Gatsby Starter Blog](https://github.com/gatsbyjs/gatsby-starter-blog) and [DatoCMS](https://www.datocms.com).
 
 ## 🚀 Quick start
 
